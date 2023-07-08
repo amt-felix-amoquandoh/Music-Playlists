@@ -1,9 +1,10 @@
 import Sidebar from '@/components/Sidebar'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Figtree } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 
-const font = Figtree({ subsets: ['latin'] })
+const font = Poppins({ weight: '400', subsets: ['latin'] });
+
 
 export const metadata: Metadata = {
   title: 'Web Music Player',
