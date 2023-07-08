@@ -3,6 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import SupabaseProvider from '@/providers/SupabaseProvider';
+import UserProvider from '@/providers/userProvider';
+import ModalProvider from '@/providers/modalProvider';
 
 const font = Poppins({ weight: '400', subsets: ['latin'] });
 
@@ -21,9 +23,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <SupabaseProvider>
-        <Sidebar>
-        {children}
-        </Sidebar>
+          <UserProvider>
+            <ModalProvider/>
+            <Sidebar>
+             {children}
+            </Sidebar>
+          </UserProvider>        
         </SupabaseProvider>
       </body>
     </html>
