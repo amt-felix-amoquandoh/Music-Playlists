@@ -2,6 +2,7 @@ import Sidebar from '@/components/Sidebar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
+import SupabaseProvider from '@/providers/SupabaseProvider';
 
 const font = Poppins({ weight: '400', subsets: ['latin'] });
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
+        <SupabaseProvider>
         <Sidebar>
         {children}
         </Sidebar>
+        </SupabaseProvider>
       </body>
     </html>
   )
