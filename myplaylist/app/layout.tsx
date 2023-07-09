@@ -1,17 +1,17 @@
 import Sidebar from '@/components/Sidebar'
 import './globals.css'
 import type { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { Figtree } from 'next/font/google'
 import SupabaseProvider from '@/providers/SupabaseProvider';
 import UserProvider from '@/providers/userProvider';
 import ModalProvider from '@/providers/modalProvider';
 
-const font = Poppins({ weight: '400', subsets: ['latin'] });
+const font = Figtree({ weight: '400', subsets: ['latin'] });
 
 
 export const metadata: Metadata = {
   title: 'Web Music Player',
-  description: 'Save some playlists',
+  description: 'Music playlist saver built with Next.js',
 }
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={font.className}>
         <SupabaseProvider>
           <UserProvider>
-            <ModalProvider products={[]}/>
+            <ModalProvider/>
             <Sidebar>
              {children}
             </Sidebar>
