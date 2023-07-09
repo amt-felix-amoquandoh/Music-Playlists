@@ -6,6 +6,7 @@ import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import Button from "./Button";
 import useAuthModal from "@/hooks/useAuthModal";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -18,9 +19,21 @@ const Header: React.FC<HeaderProps> = ({
 }) => {
     const authModal = useAuthModal();
     const router = useRouter();
-    const handleLogout = () => {
+    const supabaseClient = useSupabaseClient();
+
+
+    const { user } = useUser();
+
+
+    const handleLogout = async () => {
         //handle logout here
+        const { error } = await supabaseClient.auth.signOut();
+
+        //reset songs
+        router.refresh();
     }
+
+
   return (
     <div className={twMerge(`h-fit bg-gradient-to-b from-blue-400 p-6`, className)}>
         <div className="w-full mb-4 flex items-center justify-between">
