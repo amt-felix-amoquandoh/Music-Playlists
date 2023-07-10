@@ -11,10 +11,12 @@ import { useUser } from "@/hooks/useUser";
 
 import Modal from './Modal';
 import useUploadModal from '@/hooks/useUploadModal.ts';
-import { FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import Input from './Input';
 
 
 const UploadModal = () => {
+    const [isLoading, setIsLoading] = useState();
     const uploadModal = useUploadModal();
 
     const { 
@@ -30,9 +32,13 @@ const UploadModal = () => {
 
     const onChange = (open: boolean) => {
         if(!open) {
-            //reset form
+            reset();
             uploadModal.onClose();
         }
+    }
+
+    const onSubmit: SubmitHandler<FieldValues> = async (values) => {
+        //upload to supabase
     }
 
     return (
@@ -42,7 +48,35 @@ const UploadModal = () => {
         isOpen={uploadModal.isOpen}
         onChange={onChange}
         >
-            Form
+            <form 
+            onSubmit={handleSubmit(onSubmit)}
+            className='flex flex-col gap-y-4'
+            >
+                <Input 
+                id="title"
+                disabled={isLoading}
+                {...register('title', {required: true})}  
+                placeholder="Song title"
+                />
+                <Input 
+                id="author"
+                disabled={isLoading}
+                {...register('author', {required: true})}  
+                placeholder="Song Author"
+                />
+                <div>
+                    <div className='pb-1'>
+                        Select a song file
+                    </div>
+                    <Input 
+                id='song'
+                type='file'
+                disabled={isLoading}
+                {...register('song', {required: true})}  
+              
+                />
+                </div>
+            </form>
         </Modal>
     )
  
