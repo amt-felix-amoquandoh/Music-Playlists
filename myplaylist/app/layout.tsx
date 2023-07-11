@@ -6,6 +6,7 @@ import SupabaseProvider from '@/providers/SupabaseProvider';
 import UserProvider from '@/providers/userProvider';
 import ModalProvider from '@/providers/modalProvider';
 import ToasterProvider from '@/providers/ToasterProvider';
+import getSongsByUserId from '@/actions/getSongsByUserId';
 
 const font = Figtree({ weight: '400', subsets: ['latin'] });
 
@@ -15,11 +16,14 @@ export const metadata: Metadata = {
   description: 'Music playlist saver built with Next.js',
 }
 
-export default function RootLayout({
+export const revalidate = 0;
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const userSongs = await getSongsByUserId();
   return (
     <html lang="en">
       <body className={font.className}>
@@ -27,7 +31,7 @@ export default function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider/>
-            <Sidebar>
+            <Sidebar songs={userSongs}>
              {children}
             </Sidebar>
           </UserProvider>        
