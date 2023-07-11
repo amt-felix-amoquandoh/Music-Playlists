@@ -34,7 +34,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       const { data, error } = await supabaseClient
         .from('liked_songs')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('id', user.id)
         .eq('song_id', songId)
         .single();
 
@@ -57,7 +57,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
       const { error } = await supabaseClient
         .from('liked_songs')
         .delete()
-        .eq('user_id', user.id)
+        .eq('id', user.id)
         .eq('song_id', songId)
 
       if (error) {
